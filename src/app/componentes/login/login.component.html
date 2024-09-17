@@ -1,0 +1,16 @@
+<div class="login-container">
+    <form [formGroup]="loginForm">
+      <h2>Ingresar</h2>
+      
+      <label for="email">Email:</label>
+      <input type="text" formControlName="email" id="email" required>
+  
+      <label for="password">Password:</label>
+      <input type="password" formControlName="password" id="password" required>
+  
+      <button type="submit">Test login</button>
+      <button type="button" (click)="autocompletarLogin()">Autocompletar</button>
+    </form>
+
+    <p>Registrate <a [routerLink]="['/registracion']">aqui</a></p>
+</div>

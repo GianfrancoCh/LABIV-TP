@@ -1,0 +1,80 @@
+.home-container {
+padding: 20px;
+font-family: Arial, sans-serif;
+}
+
+.header {
+text-align: center;
+margin-bottom: 40px;
+}
+
+.header h1 {
+font-size: 3rem;
+color: #ff5722;
+}
+
+.header p {
+font-size: 1.2rem;
+color: #757575;
+}
+
+.juegos-destacados, .juegos-recientes {
+margin-bottom: 40px;
+}
+
+.juegos-destacados h2, .juegos-recientes h2 {
+font-size: 2rem;
+margin-bottom: 20px;
+color: #ff5722;
+}
+
+.juegos-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+gap: 20px;
+}
+
+.juego-card {
+background-color: #f1f1f1;
+border-radius: 10px;
+overflow: hidden;
+cursor: pointer;
+transition: transform 0.3s ease;
+}
+
+.juego-card:hover {
+transform: scale(1.05);
+}
+
+.juego-card img {
+width: 100%;
+height: 150px;
+object-fit: cover;
+}
+
+.juego-info {
+padding: 15px;
+text-align: center;
+}
+
+.juego-info h3 {
+font-size: 1.5rem;
+margin-bottom: 10px;
+}
+
+.juego-info p {
+font-size: 1rem;
+color: #757575;
+}
+
+.juegos-recientes ul {
+list-style-type: none;
+padding: 0;
+}
+
+.juegos-recientes li {
+font-size: 1.2rem;
+padding: 10px 0;
+border-bottom: 1px solid #ddd;
+}
+  

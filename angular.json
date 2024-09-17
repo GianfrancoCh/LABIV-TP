@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "LABIV-TP": {
+    "labiv-tp": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -21,10 +21,8 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"
@@ -64,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "LABIV-TP:build:production"
+              "buildTarget": "labiv-tp:build:production"
             },
             "development": {
-              "buildTarget": "LABIV-TP:build:development"
+              "buildTarget": "labiv-tp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,10 +82,8 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"
