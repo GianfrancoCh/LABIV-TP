@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Auth, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import {Firestore,collection,query,addDoc} from "@angular/fire/firestore"
-import { RouterModule } from '@angular/router';
-
+import { RouterModule, Router} from '@angular/router';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   
 
-  constructor(private fb: FormBuilder) {
+  constructor(private router: Router, private fb: FormBuilder) {
 		this.loginForm = this.fb.group({
 			email: [''],
 			password: ['']
