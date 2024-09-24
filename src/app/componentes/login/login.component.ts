@@ -17,7 +17,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(private firestore: Firestore, private router: Router, private fb: FormBuilder) {
 		this.loginForm = this.fb.group({
 			email: [''],
 			password: ['']
@@ -29,6 +29,12 @@ export class LoginComponent {
       email: "test@gmail.com",
       password: "1234hola"
     });
+  }
+
+  Login(){
+    console.log(this.loginForm.value);
+    let col = collection(this.firestore, 'logins');
+    addDoc(col, { fecha: new Date(), "user": this.loginForm.get('email')?.value});
   }
 
 }

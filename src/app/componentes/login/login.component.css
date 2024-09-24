@@ -1,11 +1,11 @@
-/* Asegúrate de que el componente ocupe toda la altura de la pantalla */
 :host {
     display: flex;
-    justify-content: center;  /* Centra horizontalmente */
-    align-items: center;      /* Centra verticalmente */
-    height: 100vh;            /* La altura del componente es el 100% de la ventana */
-    background-color: #f0f0f0; /* Fondo opcional */
+    justify-content: center; 
+    align-items: center;   
+    height: 100vh;         
+    background: linear-gradient(135deg, #7e98f4, #ebb3b3); 
 }
+
 
 .login-container {
     width: 300px;
