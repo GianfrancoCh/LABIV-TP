@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #7e98f4, #ebb3b3);
+}
+
+.quien-soy-container {
+    width: 300px;
+    font-family: system-ui;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin: 0 auto;
+}
+
+.quien-soy-container h1 {
+    text-align: center;
+}

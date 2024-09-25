@@ -17,6 +17,10 @@
     background-color: white;
 }
 
+.login-container h2 {
+    text-align: center;
+}
+
 input[type="text"],
 input[type="password"] {
     width: 100%;
@@ -39,3 +43,8 @@ button {
     width: 100%;
     font-family: inherit
 } 
+
+.error {
+    color: red;
+    font-size: 12px;
+}

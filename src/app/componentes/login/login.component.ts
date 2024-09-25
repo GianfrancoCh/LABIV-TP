@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Auth, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import {Firestore,collection,query,addDoc} from "@angular/fire/firestore"
 import { RouterModule, Router} from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { RouterModule, Router} from '@angular/router';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [ReactiveFormsModule, RouterModule]
+  imports: [ReactiveFormsModule, RouterModule, CommonModule]
 })
 export class LoginComponent {
 
@@ -19,8 +20,8 @@ export class LoginComponent {
 
   constructor(private firestore: Firestore, private router: Router, private fb: FormBuilder) {
 		this.loginForm = this.fb.group({
-			email: [''],
-			password: ['']
+			email: ['', [Validators.required, Validators.email]],
+			password: ['', [Validators.required, Validators.minLength(6)]]
 		});
 	}
 
@@ -31,10 +32,14 @@ export class LoginComponent {
     });
   }
 
-  Login(){
+  Login() {
+    if (this.loginForm.invalid) {
+      
+      this.loginForm.markAllAsTouched(); 
+      return;
+    }
+
     console.log(this.loginForm.value);
-    let col = collection(this.firestore, 'logins');
-    addDoc(col, { fecha: new Date(), "user": this.loginForm.get('email')?.value});
   }
 
 }

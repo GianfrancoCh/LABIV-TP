@@ -1,28 +1,22 @@
-/* app.component.css */
-
-/* Reseteo de márgenes y padding del body para cubrir toda la pantalla */
 body {
-    background-color: #d7d7e8; /* Color de fondo general */
+    background-color: #d7d7e8;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    min-height: 100vh; /* Asegura que el fondo cubra toda la altura */
+    min-height: 100vh;
 }
 
-/* Asegúrate de que todos los elementos básicos heredan el estilo de fuente */
 body, h1, h2, h3, h4, h5, h6, p, a, button {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    margin: 0; /* Remueve márgenes predeterminados */
-    padding: 0; /* Remueve padding predeterminados */
+    margin: 0;
+    padding: 0;
 }
 
-/* Estilos de la barra de navegación */
 .navbar {
     background-color: #333;
     padding: 10px;
 }
 
-/* Asegura que la barra de navegación se ajuste bien sin márgenes */
 .navbar ul {
     list-style-type: none;
     margin: 0;
@@ -43,6 +37,8 @@ body, h1, h2, h3, h4, h5, h6, p, a, button {
 
 .navbar a:hover {
     background-color: #575757;
+    border-radius: 5px;
+
 }
 
 .active {
