@@ -33,11 +33,18 @@ export class LoginComponent {
   }
 
   Login() {
+
+    const email = this.loginForm.get('email')?.value;
+		const password = this.loginForm.get('password')?.value;
+
     if (this.loginForm.invalid) {
       
       this.loginForm.markAllAsTouched(); 
       return;
     }
+
+    let col = collection(this.firestore, 'logins');
+    addDoc(col, { fecha: new Date(), "email": email});
 
     console.log(this.loginForm.value);
   }
