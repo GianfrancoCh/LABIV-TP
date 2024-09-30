@@ -13,12 +13,14 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./login.component.css'],
   imports: [ReactiveFormsModule, RouterModule, CommonModule]
 })
-export class LoginComponent {
+export class LoginComponent{
 
   loginForm: FormGroup;
+  flagError: boolean = false;
+  msjError: string = '';
   
 
-  constructor(private firestore: Firestore, private router: Router, private fb: FormBuilder) {
+  constructor(private router: Router, private fb: FormBuilder, public auth: Auth) {
 		this.loginForm = this.fb.group({
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', [Validators.required, Validators.minLength(6)]]
@@ -27,26 +29,67 @@ export class LoginComponent {
 
   autocompletarLogin(){
     this.loginForm.patchValue({
-      email: "test@gmail.com",
-      password: "1234hola"
+      email: "admin@test.com",
+      password: "admin1234"
     });
   }
 
-  Login() {
+  // Login() {
 
-    const email = this.loginForm.get('email')?.value;
-		const password = this.loginForm.get('password')?.value;
+  //   const email = this.loginForm.get('email')?.value;
+	// 	const password = this.loginForm.get('password')?.value;
 
-    if (this.loginForm.invalid) {
+  //   if (this.loginForm.invalid) {
       
-      this.loginForm.markAllAsTouched(); 
+  //     this.loginForm.markAllAsTouched(); 
+  //     return;
+  //   }
+
+  //   let col = collection(this.firestore, 'logins');
+  //   addDoc(col, { fecha: new Date(), "email": email});
+
+  //   console.log(this.loginForm.value);
+  // }
+
+  Login() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();  
       return;
     }
 
-    let col = collection(this.firestore, 'logins');
-    addDoc(col, { fecha: new Date(), "email": email});
+    const email = this.loginForm.get('email')?.value;  
+    const password = this.loginForm.get('password')?.value;  
 
-    console.log(this.loginForm.value);
+    signInWithEmailAndPassword(this.auth, email, password)  
+      .then((res) => {
+        if (res.user.email !== null) {
+          this.router.navigate(['/home']);  
+        }
+      })
+      .catch((e) => {
+        this.flagError = true; 
+        switch (e.code) {
+          case 'auth/wrong-password':
+            this.msjError = 'Contraseña incorrecta';
+            break;
+          case 'auth/user-not-found':
+            this.msjError = 'Usuario no encontrado';
+            break;
+          case 'auth/invalid-email':
+            this.msjError = 'Email inválido';
+            break;
+          default:
+            this.msjError = e.message; 
+            break;
+        }
+      });
   }
+
+  // CloseSession() {
+  //   signOut(this.auth).then(() => {
+  //     this.loggedUser = ""; 
+  //     console.log("Sesión cerrada");
+  //   });
+  // }
 
 }

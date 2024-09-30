@@ -44,6 +44,11 @@ button {
     font-family: inherit
 } 
 
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 .error {
     color: red;
     font-size: 12px;
