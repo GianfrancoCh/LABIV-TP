@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from 'express';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css'],
+  imports: [CommonModule, RouterModule],
+  standalone: true,
 })
-
 export class HomeComponent {
-  // Datos del componente
-  titulo: string = '¡Bienvenido a la sala de juegos!';
+  titulo = 'Sala de Juegos';
+  
+  juegos = [
+    { nombre: 'Ahorcado', link: '/juegos/ahorcado' },
+    { nombre: 'Mayor Menor', link: '/juegos/mayormenor' },
+    { nombre: 'Juego 3', link: '/juegos/juego3' },
+    { nombre: 'Juego 4', link: '/juegos/juego4' }
+  ];
 
+  jugar(juego: any) {
+    console.log(`Jugando ${juego.nombre}`);
+  }
 }

@@ -4,6 +4,7 @@ import { Auth, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import {Firestore,collection,query,addDoc} from "@angular/fire/firestore"
 import { RouterModule, Router} from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {AuthService} from '../../servicios/auth.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class LoginComponent{
   msjError: string = '';
   
 
-  constructor(private router: Router, private fb: FormBuilder, public auth: Auth) {
+  constructor(private router: Router, private fb: FormBuilder, private firestore: Firestore, private authService: AuthService) {
 		this.loginForm = this.fb.group({
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', [Validators.required, Validators.minLength(6)]]
@@ -33,23 +34,7 @@ export class LoginComponent{
       password: "admin1234"
     });
   }
-
-  // Login() {
-
-  //   const email = this.loginForm.get('email')?.value;
-	// 	const password = this.loginForm.get('password')?.value;
-
-  //   if (this.loginForm.invalid) {
-      
-  //     this.loginForm.markAllAsTouched(); 
-  //     return;
-  //   }
-
-  //   let col = collection(this.firestore, 'logins');
-  //   addDoc(col, { fecha: new Date(), "email": email});
-
-  //   console.log(this.loginForm.value);
-  // }
+ 
 
   Login() {
     if (this.loginForm.invalid) {
@@ -58,16 +43,18 @@ export class LoginComponent{
     }
 
     const email = this.loginForm.get('email')?.value;  
-    const password = this.loginForm.get('password')?.value;  
+    const password = this.loginForm.get('password')?.value;
 
-    signInWithEmailAndPassword(this.auth, email, password)  
-      .then((res) => {
-        if (res.user.email !== null) {
-          this.router.navigate(['/home']);  
-        }
+    this.authService.login(email, password)
+      .then(() => {
+
+        let col = collection(this.firestore, 'logins');
+        addDoc(col, { fecha: new Date(), "email": email});
+
+        this.router.navigate(['/home']);  
       })
       .catch((e) => {
-        this.flagError = true; 
+        this.flagError = true;
         switch (e.code) {
           case 'auth/wrong-password':
             this.msjError = 'Contraseña incorrecta';
@@ -84,12 +71,5 @@ export class LoginComponent{
         }
       });
   }
-
-  // CloseSession() {
-  //   signOut(this.auth).then(() => {
-  //     this.loggedUser = ""; 
-  //     console.log("Sesión cerrada");
-  //   });
-  // }
 
 }

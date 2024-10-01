@@ -1,0 +1,45 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    height: 100vh;         
+    background: linear-gradient(135deg, #7e98f4, #ebb3b3); 
+}
+
+.ahorcado-container {
+    text-align: center;
+    padding: 20px;
+}
+  
+.palabra-oculta {
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    margin-bottom: 20px;
+}
+  
+.intentos {
+    margin-bottom: 20px;
+}
+  
+.teclado {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+  
+.teclado button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 1.2rem;
+    width: 40px;
+}
+  
+.teclado button:disabled {
+    background-color: #ccc;
+    color: #fff;
+}
+  
+button {
+    cursor: pointer;
+}
+  

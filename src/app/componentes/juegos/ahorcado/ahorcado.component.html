@@ -1,0 +1,25 @@
+<div class="ahorcado-container">
+    <h2>Juego del Ahorcado</h2>
+  
+    <div class="palabra-oculta">
+      <h3>{{ palabraOculta }}</h3>
+    </div>
+  
+    <div class="intentos">
+      <p>Intentos fallidos: {{ intentos }} / {{ maxIntentos }}</p>
+      <p>Letras fallidas: {{ letrasFalladas.join(', ') }}</p>
+    </div>
+  
+    <div class="teclado">
+      <button *ngFor="let letra of 'abcdefghijklmnopqrstuvwxyz'.split('')" (click)="comprobarLetra(letra)" [disabled]="letrasAdivinadas.includes(letra) || letrasFalladas.includes(letra)">
+        {{ letra | uppercase }}
+      </button>
+    </div>
+  
+    <div *ngIf="juegoTerminado">
+      <p *ngIf="intentos >= maxIntentos">¡Has perdido! La palabra era: {{ palabra }}</p>
+      <p *ngIf="intentos < maxIntentos && !palabraOculta.includes('_')">¡Has ganado!</p>
+      <button (click)="reiniciar()">Reiniciar</button>
+    </div>
+</div>
+  

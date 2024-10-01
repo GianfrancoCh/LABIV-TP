@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { AuthService } from '../../servicios/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,7 @@ export class RegistroComponent implements OnInit {
   flagError: boolean = false;  
   msjError: string = '';
 
-  constructor(private fb: FormBuilder, public auth: Auth, private router: Router) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.registroForm = this.fb.group({
@@ -37,18 +38,13 @@ export class RegistroComponent implements OnInit {
     const email = this.registroForm.get('email')?.value; 
     const password = this.registroForm.get('password')?.value; 
 
-    createUserWithEmailAndPassword(this.auth, email, password)
-      .then((res) => {
-        if (res.user.email !== null) {
-          this.loggedUser = res.user.email;
-          this.flagError = false;  
-
-  
-          this.router.navigate(['/home']);
-        }
+    // Usamos el AuthService para manejar el registro
+    this.authService.registro(email, password)
+      .then(() => {
+        this.router.navigate(['/home']);  // Redirigir después del registro exitoso
       })
       .catch((e) => {
-        this.flagError = true;  
+        this.flagError = true;
         switch (e.code) {
           case 'auth/invalid-email':
             this.msjError = 'Email inválido';

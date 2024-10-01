@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from './componentes/page-not-found/page-not-fou
 import { LoginComponent } from './componentes/login/login.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
+import { ChatComponent } from './componentes/chat/chat.component';
 
 
 export const routes: Routes = [
@@ -13,6 +14,8 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegistroComponent},
     { path: 'quien-soy', component: QuienSoyComponent},
+    { path : 'chat', component: ChatComponent},
+    { path: 'juegos', loadChildren: () => import('./modulo-juegos/juegos.module').then(m => m.JuegosModule) },
     { path: '**', component: PageNotFoundComponent },
     
 ];

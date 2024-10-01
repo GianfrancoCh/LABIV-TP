@@ -56,3 +56,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button {
     padding: 0; 
     margin: 0; 
 }
+
+.logout{
+    margin-left: auto;  /* Mueve el Logout hacia la derecha */
+}

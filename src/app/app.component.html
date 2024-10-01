@@ -1,13 +1,17 @@
 <nav class="navbar">
-    <ul>
-      <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-      <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
-      <li><a routerLink="/quien-soy" routerLinkActive="active">Quién Soy</a></li>
-      <li><a routerLink="/juegos" routerLinkActive="active">Juegos</a></li>
-    </ul>
+  <ul>
+    <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="/quien-soy" routerLinkActive="active">Quién Soy</a></li>
+
+    <!-- Mostrar el botón de Login si no está logueado -->
+    <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active">Login</a></li>
+    <li *ngIf="isLoggedIn"><a routerLink="/chat" routerLinkActive="active">Chat</a></li>
+
+    <!-- Mostrar el botón de Logout si está logueado -->
+    <li *ngIf="isLoggedIn" class="logout"><a (click)="logout()">Cerrar Sesión</a></li>
+  </ul>
 </nav>
-  
+
 <div class="main-container">
   <router-outlet></router-outlet>
 </div>
-  
