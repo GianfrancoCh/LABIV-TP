@@ -15,25 +15,30 @@ import { ChatComponent } from './componentes/chat/chat.component';
 })
 export class AppComponent implements OnInit {
   title = 'rutas';
-  isLoggedIn = false;  // Variable para almacenar el estado de autenticación
+  isLoggedIn = false; 
 
-  constructor(private router: Router, private authService: AuthService) {}  // Inyectar el AuthService
+
+  constructor(private router: Router, private authService: AuthService) {}  
 
   ngOnInit() {
-    // Comprobar si el usuario está logueado
+    
     this.authService.isLoggedInEmitter.subscribe((loggedIn: boolean) => {
-      this.isLoggedIn = loggedIn;  // Actualizar el estado de isLoggedIn
+      this.isLoggedIn = loggedIn;  
     });
+
+
   }
+
+ 
 
   goTo(path: string) {
     this.router.navigate([path]);
   }
 
-  // Método para cerrar sesión
+
   logout() {
     this.authService.logout().then(() => {
-      this.isLoggedIn = false;  // Actualizar el estado después de cerrar sesión
+      this.isLoggedIn = false;  
       this.router.navigate(['/login']);
     });
   }

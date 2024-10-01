@@ -1,12 +1,38 @@
-import { Component } from '@angular/core';
+import { CommonModule} from '@angular/common';
+import { Component} from '@angular/core';
+import {Storage, ref, listAll, getDownloadURL} from '@angular/fire/storage'
 
 @Component({
   selector: 'app-quien-soy',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './quien-soy.component.html',
   styleUrl: './quien-soy.component.css'
 })
-export class QuienSoyComponent {
+export class QuienSoyComponent{
 
+  images: string[];
+
+  constructor(private storage: Storage) {
+    this.images = [];
+  }
+
+  ngOnInit() {
+    this.getImages();
+  }
+
+  getImages() {
+    const imagesRef = ref(this.storage, 'images');
+
+    listAll(imagesRef)
+      .then(async response => {
+        console.log(response);
+        this.images = [];
+        for (let item of response.items) {
+          const url = await getDownloadURL(item);
+          this.images.push(url);
+        }
+      })
+      .catch(error => console.log(error));
+  }
 }

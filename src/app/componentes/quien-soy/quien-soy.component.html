@@ -9,6 +9,6 @@
     </div>
 
     <div class="imagen-perfil">
-      <img src="assets/gian.png" class="img-perfil">
+      <img [src]="image" *ngFor="let image of images" class="img-perfil">
     </div>
 </div>
