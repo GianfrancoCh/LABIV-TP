@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
+
 
 @Component({
   selector: 'app-mayormenor',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './mayormenor.component.css'
 })
 export class MayormenorComponent {
-
+  
 }

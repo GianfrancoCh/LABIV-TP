@@ -1,22 +1,35 @@
-body {
-    background-color: #d7d7e8;
+/* Asegura que el body y el html ocupen el 100% de la pantalla */
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    min-height: 100vh;
+    height: 100%;
+    overflow: hidden; /* Evita el scroll en todo el sitio */
 }
 
+/* Oculta el scrollbar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Fuente predeterminada y reinicio de márgenes */
 body, h1, h2, h3, h4, h5, h6, p, a, button {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
+/* Estilo para el navbar */
 .navbar {
     background-color: #333;
     padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100; /* Asegura que el navbar esté sobre el contenido */
 }
 
+/* Lista de navegación */
 .navbar ul {
     list-style-type: none;
     margin: 0;
@@ -28,6 +41,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button {
     margin-right: 20px;
 }
 
+/* Enlaces de navegación */
 .navbar a {
     color: white;
     text-decoration: none;
@@ -38,7 +52,6 @@ body, h1, h2, h3, h4, h5, h6, p, a, button {
 .navbar a:hover {
     background-color: #575757;
     border-radius: 5px;
-
 }
 
 .active {
@@ -46,17 +59,32 @@ body, h1, h2, h3, h4, h5, h6, p, a, button {
     border-radius: 5px;
 }
 
+/* Contenedor principal que ocupa todo el espacio restante */
 .main-container {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: stretch;
-    background-color: inherit; 
-    padding: 0; 
-    margin: 0; 
+    height: calc(100vh - 60px); /* Altura restante menos el tamaño del navbar */
+    padding: 0;
+    margin-top: 60px; /* Asegura que no se solape con el navbar */
+    background-color: inherit;
+    overflow: hidden; /* Evita el scroll dentro del contenedor */
+    width: 100%; /* Asegura que el contenedor principal ocupe todo el ancho */
 }
 
-.logout{
-    margin-left: auto;  /* Mueve el Logout hacia la derecha */
+
+router-outlet {
+    flex-grow: 1; /* Permite que el contenido crezca hasta ocupar todo el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden; /* Evita scroll en el contenido cargado dentro del router-outlet */
+}
+
+
+.logout {
+    margin-left: auto;
 }

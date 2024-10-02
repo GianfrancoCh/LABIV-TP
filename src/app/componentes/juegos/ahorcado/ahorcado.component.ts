@@ -14,7 +14,7 @@ export class AhorcadoComponent implements OnInit {
   juegoTerminado: boolean = false; 
 
 
-  palabras: string[] = ['test','gian'];
+  palabras: string[] = ['motor', 'llantas', 'volante', 'freno', 'transmisión', 'suspensión', 'escape', 'parabrisas', 'faros', 'embrague'];
   maxIntentos: number = 5; 
 
   constructor() { }

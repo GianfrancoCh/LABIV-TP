@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JuegosComponent} from './juegos.component';
 import { AhorcadoComponent } from '../componentes/juegos/ahorcado/ahorcado.component';
 import { JuegosRoutingModule } from './juegos-routing.module';
-import { MayormenorComponent } from '../componentes/juegos/mayormenor/mayormenor.component';
+import {MayormenorComponent } from '../componentes/juegos/mayormenor/mayormenor.component';
 
 
 

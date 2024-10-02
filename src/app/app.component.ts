@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   title = 'rutas';
   isLoggedIn = false; 
 
-
   constructor(private router: Router, private authService: AuthService) {}  
 
   ngOnInit() {
@@ -25,16 +24,11 @@ export class AppComponent implements OnInit {
     this.authService.isLoggedInEmitter.subscribe((loggedIn: boolean) => {
       this.isLoggedIn = loggedIn;  
     });
-
-
   }
-
- 
 
   goTo(path: string) {
     this.router.navigate([path]);
   }
-
 
   logout() {
     this.authService.logout().then(() => {

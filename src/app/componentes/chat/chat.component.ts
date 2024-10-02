@@ -4,6 +4,7 @@ import { Firestore, collection, addDoc, query, onSnapshot } from '@angular/fire/
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Timestamp, orderBy } from 'firebase/firestore';
 
 @Component({
   selector: 'app-chat',
@@ -22,42 +23,39 @@ export class ChatComponent implements OnInit {
       mensaje: [''] 
     });
   }
-
+  
   ngOnInit(): void {
-    this.authService.isLoggedInEmitter.subscribe((loggedIn: boolean) => {
-      this.isLoggedIn = loggedIn;
-    });
-
-    const q = query(collection(this.firestore, 'mensajes'));
+    const q = query(
+      collection(this.firestore, 'mensajes'),
+      orderBy('fecha', 'desc') 
+    );
+  
     onSnapshot(q, (querySnapshot) => {
       this.mensajes = [];
       querySnapshot.forEach((doc) => {
-        this.mensajes.push(doc.data());
+        const data = doc.data();
+        const fecha = data['fecha'] ? (data['fecha'] as Timestamp).toDate() : new Date();
+        this.mensajes.push({
+          ...data,
+          fecha: fecha.toLocaleString() 
+        });
       });
     });
   }
 
-  sendMessage() {
-    
+  sendMessage () {
+
     if (this.chatForm.valid) {
       const mensaje = this.chatForm.get('mensaje')?.value;  
       const currentUser = this.authService.getCurrentUser();
 
-      if (this.isLoggedIn && currentUser) {
+      if (currentUser) {
        
         const fecha = new Date(); 
         addDoc(collection(this.firestore, 'mensajes'), {
           user: currentUser.email,
           mensaje: mensaje,  
-          fecha: fecha.toLocaleString('es-ES', {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false  
-          })
+          fecha: fecha
         }).then(() => {
           this.chatForm.reset();  
         }).catch((error) => {

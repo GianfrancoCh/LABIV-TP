@@ -2,13 +2,21 @@
     display: flex;
     justify-content: center;
     align-items: center;   
-    height: 100vh;         
+    height: 100vh;  /* Ocupa todo el alto de la pantalla */       
     background: linear-gradient(135deg, #7e98f4, #ebb3b3); 
+    overflow: hidden; /* Evita el scroll */
 }
 
+
 .home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     font-family: Arial, sans-serif;
+    height: 100%;  /* Ocupa el 100% del espacio disponible */
+    overflow: hidden; /* Asegura que no haya scroll */
 }
 
 .header {
@@ -19,6 +27,7 @@
 .header h1 {
     font-size: 3rem;
     color: #000000;
+    margin: 0; /* Asegúrate de que no haya márgenes adicionales */
 }
 
 .header p {
@@ -31,8 +40,10 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin-top: 20px;
+    justify-content: center;
+    align-items: center;
 }
-  
+
 .game-box {
     background-color: #f0f0f0;
     padding: 20px;

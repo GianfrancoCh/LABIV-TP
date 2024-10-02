@@ -7,6 +7,7 @@
 }
 
 .ahorcado-container {
+    font-family: system-ui;
     text-align: center;
     padding: 20px;
 }
@@ -32,14 +33,22 @@
     margin: 5px;
     font-size: 1.2rem;
     width: 40px;
+    border-radius: 10px;
+}
+
+.teclado button:hover {
+    background-color: #ece0e0;
+    border-radius: 10px;
 }
   
 .teclado button:disabled {
-    background-color: #ccc;
+    background-color: #f1e3e3;
     color: #fff;
 }
   
 button {
     cursor: pointer;
 }
+
+
   

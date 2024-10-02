@@ -8,7 +8,6 @@ import { ChatComponent } from './componentes/chat/chat.component';
 
 
 export const routes: Routes = [
-    // Si le ponemos 'prefix' nos va a arrojar un error en la consola de redireccion infinita
     { path: '', redirectTo: '/home', pathMatch: "full" },
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
