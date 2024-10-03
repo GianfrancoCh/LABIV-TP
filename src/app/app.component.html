@@ -4,7 +4,7 @@
     <li><a routerLink="/quien-soy" routerLinkActive="active">Quién Soy</a></li>
 
     <!-- Mostrar el botón de Login si no está logueado -->
-    <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active">Login</a></li>
+    <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active">Iniciar Sesión</a></li>
     <li *ngIf="isLoggedIn"><a routerLink="/chat" routerLinkActive="active">Chat</a></li>
 
     <!-- Mostrar el botón de Logout si está logueado -->

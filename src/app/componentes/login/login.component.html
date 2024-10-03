@@ -1,6 +1,6 @@
 <div class="login-container">
   <form [formGroup]="loginForm" (ngSubmit)="Login()">
-    <h2>Ingresar</h2>
+    <h2>Inicie Sesión</h2>
 
     <label for="email">Email:</label>
     <input type="text" formControlName="email" id="email" required>
@@ -16,7 +16,7 @@
       <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Largo mínimo 6 caracteres.</div>
     </div>
 
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <button type="submit" [disabled]="loginForm.invalid">Ingresar</button>
     <button type="button" (click)="autocompletarLogin()">Autocompletar</button>
   </form>
   

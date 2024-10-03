@@ -2,9 +2,10 @@
     display: flex;
     justify-content: center;
     align-items: center;   
-    height: 100vh;  /* Ocupa todo el alto de la pantalla */       
+    height: 100vh;       
     background: linear-gradient(135deg, #7e98f4, #ebb3b3); 
-    overflow: hidden; /* Evita el scroll */
+    overflow: hidden; 
+    background-image: 'src/assets/arcade.png';
 }
 
 
@@ -15,8 +16,12 @@
     align-items: center;
     padding: 20px;
     font-family: Arial, sans-serif;
-    height: 100%;  /* Ocupa el 100% del espacio disponible */
-    overflow: hidden; /* Asegura que no haya scroll */
+    height: 100%; 
+    width: 100%; 
+    background-image: url('/assets/arcade.png');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .header {
@@ -26,13 +31,16 @@
 
 .header h1 {
     font-size: 3rem;
-    color: #000000;
-    margin: 0; /* Asegúrate de que no haya márgenes adicionales */
+    background: linear-gradient(135deg, #e8d7e4, #e299fb);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    background-clip: text; 
+    margin: 0; 
 }
 
 .header p {
     font-size: 1.2rem;
-    color: #757575;
+    color: #f7e8e8;
 }
 
 .games-grid {
@@ -45,7 +53,7 @@
 }
 
 .game-box {
-    background-color: #f0f0f0;
+    background: linear-gradient(135deg, #fad5f2, #eeb3f2); 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);

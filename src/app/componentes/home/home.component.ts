@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
 })
 export class HomeComponent {
-  titulo = 'Sala de Juegos';
+  titulo = 'SALA DE JUEGOS';
   
   juegos = [
     { nombre: 'Ahorcado', link: '/juegos/ahorcado' },
