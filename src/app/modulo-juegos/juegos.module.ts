@@ -4,6 +4,8 @@ import { JuegosComponent} from './juegos.component';
 import { AhorcadoComponent } from '../componentes/juegos/ahorcado/ahorcado.component';
 import { JuegosRoutingModule } from './juegos-routing.module';
 import {MayormenorComponent } from '../componentes/juegos/mayormenor/mayormenor.component';
+import { PreguntadosComponent } from '../componentes/juegos/preguntados/preguntados.component';
+
 
 
 
@@ -11,7 +13,8 @@ import {MayormenorComponent } from '../componentes/juegos/mayormenor/mayormenor.
 	declarations: [
     JuegosComponent,
     AhorcadoComponent,
-    MayormenorComponent
+    MayormenorComponent,
+	PreguntadosComponent
 	],
 	imports: [
 		CommonModule,

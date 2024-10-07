@@ -1,0 +1,30 @@
+.trivia-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .bandera {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .options button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .result {
+    margin-top: 20px;
+    font-size: 1.2rem;
+  }

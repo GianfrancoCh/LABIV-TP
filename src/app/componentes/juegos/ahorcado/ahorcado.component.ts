@@ -14,8 +14,12 @@ export class AhorcadoComponent implements OnInit {
   juegoTerminado: boolean = false; 
 
 
-  palabras: string[] = ['motor', 'llantas', 'volante', 'freno', 'transmisión', 'suspensión', 'escape', 'parabrisas', 'faros', 'embrague'];
-  maxIntentos: number = 5; 
+  palabras: string[] = ['fiat', 'ferrari', 'toyota', 'honda', 'bmw', 'volkswagen', 'ford', 'chevrolet', 'audi'];
+  maxIntentos: number = 6; 
+
+  imagenesAhorcado: string [] = ['assets/ahorcado/ahorcado0.jpg','assets/ahorcado/ahorcado1.jpg','assets/ahorcado/ahorcado2.jpg',
+    'assets/ahorcado/ahorcado3.jpg','assets/ahorcado/ahorcado4.jpg','assets/ahorcado/ahorcado5.jpg','assets/ahorcado/ahorcado6.jpg'
+  ]
 
   constructor() { }
 
@@ -41,18 +45,15 @@ export class AhorcadoComponent implements OnInit {
     }
 
     if (this.palabra.includes(letra)) {
-   
       this.letrasAdivinadas.push(letra);
       this.revelarPalabra();
     } else {
-      
       if (!this.letrasFalladas.includes(letra)) {
         this.letrasFalladas.push(letra);
         this.intentos++;
       }
     }
 
- 
     if (this.intentos >= this.maxIntentos) {
       this.juegoTerminado = true;
     }
@@ -71,5 +72,9 @@ export class AhorcadoComponent implements OnInit {
 
   reiniciar() {
     this.iniciarJuego();
+  }
+
+  obtenerImagenAhorcado(): string {
+    return this.imagenesAhorcado[this.intentos]; 
   }
 }

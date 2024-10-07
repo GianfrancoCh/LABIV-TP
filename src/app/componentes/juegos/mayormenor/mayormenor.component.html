@@ -1,2 +1,19 @@
-<h1>mayor menor</h1>
+<div class="mayor-menor-container">
+    <h2>Mayor o Menor</h2>
+    <div class="carta-actual" *ngIf="cartaActual">
+      <p>Carta actual:</p>
+      <img [src]="cartaActual" alt="Carta actual">
+    </div>
+  
+    <p>Puntos: {{ puntos }}</p>
+    <p>La carta siguiente va a ser</p>
+  
+    <button (click)="adivinar('mayor')">Mayor</button>
+    <button (click)="adivinar('menor')">Menor</button>
+  
+    <div *ngIf="cartaSiguiente">
+      <p>Carta siguiente:</p>
+      <img [src]="cartaSiguiente" alt="Carta siguiente">
+    </div>
+</div>
   

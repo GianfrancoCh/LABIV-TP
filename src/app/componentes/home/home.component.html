@@ -1,4 +1,4 @@
-<div class="home-container">
+<div class="home-container"> 
   <header class="header">
     <h1>{{ titulo }}</h1>
     <p>Selecciona un juego</p>
@@ -6,7 +6,10 @@
 
   <div class="games-grid">
     <div class="game-box" *ngFor="let juego of juegos">
-      <a [routerLink]="juego.link">{{ juego.nombre }}</a>
+      <a [routerLink]="juego.link">
+        <span class="game-name">{{ juego.nombre }}</span> 
+        <img [src]="juego.imagen" alt="{{ juego.nombre }} imagen">
+      </a>
     </div>
   </div>
 </div>

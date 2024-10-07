@@ -5,9 +5,8 @@
     height: 100vh;       
     background: linear-gradient(135deg, #7e98f4, #ebb3b3); 
     overflow: hidden; 
-    background-image: 'src/assets/arcade.png';
+    background-image: url('/assets/arcade.png'); 
 }
-
 
 .home-container {
     display: flex;
@@ -56,6 +55,36 @@
     background: linear-gradient(135deg, #fad5f2, #eeb3f2); 
     padding: 20px;
     border-radius: 10px;
+    border: 5px solid #000000;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.game-box .game-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 15px; 
+}
+
+.game-box img {
+    max-width: 100%;       
+    height: auto;          
+    max-height: 150px;     
+    object-fit: contain;   
+}
+
+.game-box a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+
+.game-box a:hover {
+    color: #555;
 }
