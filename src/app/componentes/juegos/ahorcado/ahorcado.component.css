@@ -12,9 +12,11 @@
     text-align: center;
     padding: 20px;
     max-width: 900px;
+    max-height: 600px;
     margin-top: 50px;
     background-color: #fff;
     border-radius: 20px;
+    border: 3px solid #000000;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -34,7 +36,7 @@
 }
 
 .intentos {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 1.2rem;
     color: #666;
 }
@@ -47,20 +49,20 @@
 }
 
 .teclado button {
-    padding: 12px;
+    padding: 10px;
     margin: 5px;
-    font-size: 1.2rem;
-    width: 45px;
-    height: 45px; /* Asegura que los botones sean cuadrados */
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px; 
     border-radius: 10px;
     background-color: #f4f4f4;
-    border: 1px solid #ccc;
+    border: 2px solid #0e0000;
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .teclado button:hover {
-    background-color: #ece0e0;
+    background-color: #eec1c1;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -75,7 +77,24 @@ button {
     cursor: pointer;
 }
 
-/* Efectos adicionales para los botones y contenedor */
+
 button:active {
-    transform: scale(0.98); /* Le da una pequeña contracción al hacer clic */
+    transform: scale(0.98); 
+}
+
+.boton-reiniciar{
+    background-color: #4c5baf;
+    font-family: system-ui;
+    color: rgb(255, 255, 255);
+    padding: 5px 10px; 
+    font-size: 14px; 
+    border-radius: 5px;
+    border: 1px solid #000000;
+    margin-top: 10px;
+}
+
+.palabra-correcta{
+    font-family: system-ui;
+    font-size: 18px; 
+    color: #000000;
 }

@@ -4,6 +4,7 @@ import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { AuthService } from '../../servicios/auth.service';
+import Swal from 'sweetalert2';  // Importa SweetAlert
 
 @Component({
   selector: 'app-register',
@@ -28,7 +29,7 @@ export class RegistroComponent implements OnInit {
     });
   }
 
- 
+  // Método para manejar el registro y los errores con SweetAlert
   onSubmit() {
     if (this.registroForm.invalid) {
       this.registroForm.markAllAsTouched();  
@@ -41,25 +42,53 @@ export class RegistroComponent implements OnInit {
     // Usamos el AuthService para manejar el registro
     this.authService.registro(email, password)
       .then(() => {
-        this.router.navigate(['/home']);  // Redirigir después del registro exitoso
+        // Mostrar mensaje de éxito
+        Swal.fire({
+          title: 'Bienvenid@!',
+          text: 'Registro exitoso',
+          icon: 'success',
+          customClass: {
+            popup: 'alert-popup',
+            title: 'alert-titulo',
+            confirmButton: 'alert-boton'
+          }
+        }).then(() => {
+          this.router.navigate(['/home']);  // Redirigir después del registro exitoso
+        });
       })
       .catch((e) => {
-        this.flagError = true;
+        let errorMsg = '';
+
         switch (e.code) {
           case 'auth/invalid-email':
-            this.msjError = 'Email inválido';
+            errorMsg = 'Email inválido';
             break;
           case 'auth/email-already-in-use':
-            this.msjError = 'Email ya está en uso';
+            errorMsg = 'Email ya está en uso';
+            break;
+          case 'auth/weak-password':
+            errorMsg = 'La contraseña es muy débil. Debe tener al menos 6 caracteres.';
             break;
           default:
-            this.msjError = e.message;  
+            errorMsg = e.message;  
             break;
         }
+
+        // Mostrar error con SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de Registro',
+          text: errorMsg,
+          customClass: {
+            popup: 'alert-popup',
+            title: 'alert-titulo-error',
+            confirmButton: 'alert-boton'
+          }
+        });
       });
   }
 
- 
+
   get username() {
     return this.registroForm.get('username');
   }

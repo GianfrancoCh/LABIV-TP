@@ -2,10 +2,13 @@
   <ul>
     <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
     <li><a routerLink="/quien-soy" routerLinkActive="active">Quién Soy</a></li>
+    
 
     <!-- Mostrar el botón de Login si no está logueado -->
     <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active">Iniciar Sesión</a></li>
     <li *ngIf="isLoggedIn"><a routerLink="/chat" routerLinkActive="active">Chat</a></li>
+    <li *ngIf="isLoggedIn"><a routerLink="/encuesta" routerLinkActive="active">Encuesta</a></li>
+  
 
     <!-- Mostrar el botón de Logout si está logueado -->
     <li *ngIf="isLoggedIn" class="logout"><a (click)="logout()">Cerrar Sesión</a></li>

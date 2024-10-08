@@ -25,8 +25,8 @@
   </div>
 
   <div *ngIf="juegoTerminado">
-    <p *ngIf="intentos >= maxIntentos">¡Has perdido! La palabra era: {{ palabra }}</p>
+    <p *ngIf="intentos >= maxIntentos" class="palabra-correcta">¡Has perdido! La palabra era: <strong>{{ palabra }}</strong></p>
     <p *ngIf="intentos < maxIntentos && !palabraOculta.includes('_')">¡Has ganado!</p>
-    <button (click)="reiniciar()">Reiniciar</button>
+    <button (click)="reiniciar()" class="boton-reiniciar">Reiniciar</button>
   </div>
 </div>

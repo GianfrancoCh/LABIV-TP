@@ -1,0 +1,11 @@
+<div *ngIf="!juegoIniciado" class="game-container">
+    <button (click)="iniciarJuego()" class="boton-iniciar">Iniciar Juego</button>
+  </div>
+  
+  <div *ngIf="juegoIniciado" class="game-container">
+    <div class="dino" [ngStyle]="{'bottom': posicionDino + 'px'}"></div>
+    <div *ngFor="let enemigo of enemigos" class="enemy" [ngStyle]="{'left': enemigo.posicion + 'px'}"></div>
+  
+    <button (click)="saltar()" class="boton-saltar">Saltar</button>
+</div>
+  

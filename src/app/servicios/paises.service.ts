@@ -1,26 +1,17 @@
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaisesService {
+  private apiUrl = 'https://restcountries.com/v3.1/all';  // API de países
 
-  http = inject(HttpClient);
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
-
-  getPaises() {
-    return this.http.get<any[]>('https://restcountries.com/v3.1/all')
-    .pipe(map(paises => paises.sort((a,b) => {
-        if (a.name.common < b.name.common) {
-          return -1;
-        } else if (a.name.common > b.name.common) {
-          return 1;
-        } else {
-          return 0;
-        }
-      })));
+  // Método para obtener todos los países
+  getPaises(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 }

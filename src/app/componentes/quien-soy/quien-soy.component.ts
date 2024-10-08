@@ -26,7 +26,6 @@ export class QuienSoyComponent{
 
     listAll(imagesRef)
       .then(async response => {
-        console.log(response);
         this.images = [];
         for (let item of response.items) {
           const url = await getDownloadURL(item);

@@ -1,0 +1,102 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #7e98f4, #ebb3b3);
+    overflow: hidden;
+  }
+  
+  .encuesta-container {
+    font-family: system-ui;
+    background-color: #ffffff;
+    border-radius: 15px;
+    border: 2px solid #4c5baf;
+    width: 90%;
+    height: 550px;
+    max-width: 700px;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .encuesta-container h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'system-ui', sans-serif;
+    font-size: 16px;
+  }
+  
+  textarea {
+    height: 20px;
+  }
+  
+  .radio-group {
+    display: flex;
+    gap: 20px;  
+    justify-content: center; 
+  }
+  
+  input[type="radio"] {
+    margin-right: 8px;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    gap: 20px; 
+    justify-content: center;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 5px;
+    margin-top: 0px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    background-color: #4c5baf;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+  
+  button:hover:not(:disabled) {
+    background-color: #3b4a8a;
+  }
+  

@@ -9,22 +9,31 @@
 .mayor-menor-container {
     font-family: system-ui;
     text-align: center;
-    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 50px;
+    padding: 40px;  /* Reduce el padding global */
+    border: 3px solid #000000;
+    max-width: 900px;
 }
-  
+
+.carta-actual img, .carta-siguiente img {
+    margin: 0 20px; /* Aumenta el espacio horizontal entre las cartas y el borde */
+    padding: 10px;
+    border-radius: 8px;
+}
+
 button {
     margin: 10px;
     padding: 10px 20px;
     font-size: 18px;
     border-radius: 10px;
-    border: 1px solid #ccc;  
-    background: linear-gradient(135deg, #fad5f2, #eeb3f2);    
+    border: 3px solid #000000;  
+    background-color: #f4f4f4;
 }
 
 button:hover {
-    background: linear-gradient(135deg, #6f4454, #ea2121);   
-    border: 1px solid #888;   
-    cursor: pointer;            
+    background-color: #eec1c1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);            
 }
-
-  
