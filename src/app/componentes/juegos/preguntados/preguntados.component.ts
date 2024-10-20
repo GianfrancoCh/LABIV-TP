@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PaisesService } from '../../../servicios/paises.service';
+import { PuntajeService } from '../../../servicios/puntaje.service';
 
 @Component({
   selector: 'app-preguntados',
@@ -13,19 +14,28 @@ export class PreguntadosComponent implements OnInit {
   public todosLosPaises: any[] = [];  
   mensaje: string = '';
   cargando: boolean = false;
-  puntaje: number = 0;
+  puntos: number = 0;  // Puntaje de la sesión actual
+  puntaje: number = 0; // Puntaje global acumulado
   juegoEmpezado: boolean = false;
 
-  constructor(private paisesService: PaisesService) {}
+  constructor(
+    private paisesService: PaisesService, 
+    private puntajeService: PuntajeService 
+  ) {}
 
-  
-  ngOnInit(): void {
-    this.iniciarJuego(); 
+  async ngOnInit(): Promise<void> {
+    await this.cargarPuntaje(); // Cargar el puntaje global al iniciar
+    this.iniciarJuego();
+  }
+
+  async cargarPuntaje(): Promise<void> {
+    this.puntaje = await this.puntajeService.obtenerPuntaje('preguntados');
   }
 
   iniciarJuego(): void {
     this.cargando = true;
     this.juegoEmpezado = true;
+    this.puntos = 0; // Reiniciar puntos de la sesión
     this.cargarPaises();
   }
 
@@ -35,7 +45,7 @@ export class PreguntadosComponent implements OnInit {
         this.todosLosPaises = data;
         this.generarPregunta();
       },
-      error: (error) => {
+      error: () => {
         this.mensaje = 'Error al cargar los países. Intenta nuevamente.';
         this.cargando = false;
       }
@@ -46,11 +56,10 @@ export class PreguntadosComponent implements OnInit {
     const indiceAleatorio = Math.floor(Math.random() * this.todosLosPaises.length);
     const paisElegido = this.todosLosPaises[indiceAleatorio];
 
-    this.banderaPais = paisElegido.flags.png;  
-    this.respuestaCorrecta = paisElegido.name.common; 
+    this.banderaPais = paisElegido.flags.png;
+    this.respuestaCorrecta = paisElegido.name.common;
 
     const opcionesIncorrectas = this.generarOpcionesIncorrectas(indiceAleatorio);
-
     this.opciones = this.mezclarOpciones([this.respuestaCorrecta, ...opcionesIncorrectas]);
     this.cargando = false;
   }
@@ -59,7 +68,10 @@ export class PreguntadosComponent implements OnInit {
     const respuestasIncorrectas: string[] = [];
     while (respuestasIncorrectas.length < 2) {
       const indiceAleatorio = Math.floor(Math.random() * this.todosLosPaises.length);
-      if (indiceAleatorio !== indiceRespuestaCorrecta && !respuestasIncorrectas.includes(this.todosLosPaises[indiceAleatorio].name.common)) {
+      if (
+        indiceAleatorio !== indiceRespuestaCorrecta &&
+        !respuestasIncorrectas.includes(this.todosLosPaises[indiceAleatorio].name.common)
+      ) {
         respuestasIncorrectas.push(this.todosLosPaises[indiceAleatorio].name.common);
       }
     }
@@ -70,15 +82,24 @@ export class PreguntadosComponent implements OnInit {
     return opciones.sort(() => Math.random() - 0.5);
   }
 
-  adivinarPais(respuestaSeleccionada: string): void {
+  async adivinarPais(respuestaSeleccionada: string): Promise<void> {
     if (respuestaSeleccionada === this.respuestaCorrecta) {
-      this.puntaje++;
-      this.mensaje = `¡Correcto! Puntos acumulados: ${this.puntaje}`;
-      this.generarPregunta(); 
+      this.puntos++; 
+      this.mensaje = `¡Correcto! Puntos de esta sesión: ${this.puntos}`;
+      await this.actualizarPuntaje(1); 
+      this.generarPregunta();
     } else {
-      this.mensaje = `El país correcto era: ${this.respuestaCorrecta}. Puntos finales: ${this.puntaje}`;
-      this.puntaje = 0;
-      this.generarPregunta(); 
+      this.mensaje = `El país correcto era: ${this.respuestaCorrecta}. Se restó 1 punto.`;
+      await this.actualizarPuntaje(-2);
+      this.generarPregunta();
     }
+  }
+
+  async actualizarPuntaje(cambio: number): Promise<void> {
+    const nuevoPuntaje = Math.max(0, this.puntaje + cambio); 
+    this.puntaje = nuevoPuntaje;
+
+    await this.puntajeService.guardarPuntaje('preguntados', this.puntaje);
+    console.log('Puntaje global actualizado:', this.puntaje);
   }
 }

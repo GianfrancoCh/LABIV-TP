@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PuntajeService } from '../../../servicios/puntaje.service'; 
 
 @Component({
   selector: 'app-ahorcado',
@@ -12,19 +13,30 @@ export class AhorcadoComponent implements OnInit {
   letrasFalladas: string[] = []; 
   letrasAdivinadas: string[] = []; 
   juegoTerminado: boolean = false; 
+  puntaje: number = 0; // Nueva variable para el puntaje
 
-
-  palabras: string[] = ['fiat', 'ferrari', 'toyota', 'honda', 'bmw', 'volkswagen', 'ford', 'chevrolet', 'audi'];
+  palabras: string[] = [
+    'fiat', 'ferrari', 'toyota', 'honda', 
+    'bmw', 'volkswagen', 'ford', 'chevrolet', 'audi'
+  ];
   maxIntentos: number = 6; 
 
-  imagenesAhorcado: string [] = ['assets/ahorcado/ahorcado0.jpg','assets/ahorcado/ahorcado1.jpg','assets/ahorcado/ahorcado2.jpg',
-    'assets/ahorcado/ahorcado3.jpg','assets/ahorcado/ahorcado4.jpg','assets/ahorcado/ahorcado5.jpg','assets/ahorcado/ahorcado6.jpg'
-  ]
+  imagenesAhorcado: string[] = [
+    'assets/ahorcado/ahorcado0.jpg', 'assets/ahorcado/ahorcado1.jpg',
+    'assets/ahorcado/ahorcado2.jpg', 'assets/ahorcado/ahorcado3.jpg',
+    'assets/ahorcado/ahorcado4.jpg', 'assets/ahorcado/ahorcado5.jpg',
+    'assets/ahorcado/ahorcado6.jpg'
+  ];
 
-  constructor() { }
+  constructor(private puntajeService: PuntajeService) {} // Inyectar el servicio
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.cargarPuntaje(); // Cargar el puntaje al iniciar
     this.iniciarJuego();
+  }
+
+  async cargarPuntaje() {
+    this.puntaje = await this.puntajeService.obtenerPuntaje('ahorcado');
   }
 
   iniciarJuego() {
@@ -37,7 +49,7 @@ export class AhorcadoComponent implements OnInit {
     this.palabraOculta = '_ '.repeat(this.palabra.length).trim();
   }
 
-  comprobarLetra(letra: string) {
+  async comprobarLetra(letra: string) {
     letra = letra.toLowerCase();
 
     if (this.juegoTerminado) {
@@ -56,10 +68,14 @@ export class AhorcadoComponent implements OnInit {
 
     if (this.intentos >= this.maxIntentos) {
       this.juegoTerminado = true;
+      console.log('Has perdido');
+      await this.actualizarPuntaje(-5);
     }
 
     if (!this.palabraOculta.includes('_')) {
       this.juegoTerminado = true;
+      console.log('¡Has ganado!');
+      await this.actualizarPuntaje(10); // Aumentar puntaje si gana
     }
   }
 
@@ -76,5 +92,11 @@ export class AhorcadoComponent implements OnInit {
 
   obtenerImagenAhorcado(): string {
     return this.imagenesAhorcado[this.intentos]; 
+  }
+
+  async actualizarPuntaje(puntos: number) {
+    this.puntaje += puntos;
+    await this.puntajeService.guardarPuntaje('ahorcado', this.puntaje);
+    console.log('Puntaje actualizado:', this.puntaje);
   }
 }

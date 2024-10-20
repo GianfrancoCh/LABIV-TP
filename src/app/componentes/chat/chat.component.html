@@ -2,13 +2,17 @@
   <h2>Chat</h2>
 
   <div class="chat-box">
-    <div *ngFor="let m of mensajes">
-      <strong>{{ m.user }}</strong> ({{ m.fecha }}): {{ m.mensaje }}
+    <div *ngFor="let m of mensajes" 
+         class="message-container" 
+         [ngClass]="{ 'from-user': m.user === currentUserEmail, 'from-others': m.user !== currentUserEmail }">
+      <div class="message">
+        <strong>{{ m.user }}</strong> ({{ m.fecha }}): {{ m.mensaje }}
+      </div>
     </div>
   </div>
 
   <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
     <input formControlName="mensaje" placeholder="Escribe un mensaje" required>
-    <button type="submit">Enviar</button> <!-- Verificar que no esté deshabilitado -->
+    <button type="submit">Enviar</button>
   </form>
 </div>

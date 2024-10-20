@@ -8,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class RunnerComponent implements OnInit {
   public estaSaltando: boolean = false;
   public juegoIniciado: boolean = false;
-  private alturaSalto: number = 15;  
+  private alturaSalto: number = 12;
   private gravedad: number = 3;
-  public posicionDino: number = 0;  
-
-  public enemigos: { posicion: number }[] = [];  
+  public posicionDino: number = 0; // Altura del dino
+  public enemigos: { posicion: number }[] = []; // Posición horizontal de los enemigos
+  public puntos: number = 0;
+  private velocidadEnemigos: number = 6;
+  private anchoObjeto: number = 50; // Ancho del dino y enemigos
 
   constructor() {}
 
@@ -20,67 +22,80 @@ export class RunnerComponent implements OnInit {
 
   iniciarJuego(): void {
     this.juegoIniciado = true;
+    this.puntos = 0;
+    this.posicionDino = 0;
+    this.enemigos = [];
+    this.generarEnemigos();
     this.iniciarCicloJuego();
-    this.generarEnemigo();  
+    this.actualizarPuntaje();
   }
 
-  iniciarCicloJuego() {
+  iniciarCicloJuego(): void {
     setInterval(() => {
-      if (!this.estaSaltando && this.juegoIniciado) {
-        this.posicionDino -= this.gravedad; 
-        if (this.posicionDino < 0) {
-          this.posicionDino = 0;  
-        }
+      if (this.juegoIniciado && !this.estaSaltando) {
+        this.posicionDino -= this.gravedad;
+        if (this.posicionDino < 0) this.posicionDino = 0;
       }
     }, 20);
   }
 
- 
-  generarEnemigo() {
+  generarEnemigos(): void {
     setInterval(() => {
       if (this.juegoIniciado) {
-        
         this.enemigos.push({ posicion: 800 });
-
-        this.moverEnemigos();  
+        this.moverEnemigos();
       }
-    }, 1500);  
+    }, 2000);
   }
 
-  moverEnemigos() {
-    setInterval(() => {
-      if (this.juegoIniciado) {
+  moverEnemigos(): void {
+    const intervaloMovimiento = setInterval(() => {
+      if (!this.juegoIniciado) {
+        clearInterval(intervaloMovimiento);
+      } else {
         for (let i = 0; i < this.enemigos.length; i++) {
-          this.enemigos[i].posicion -= 5;  
-          
-      
-          if (this.enemigos[i].posicion < -50) {
+          const enemigo = this.enemigos[i];
+          enemigo.posicion -= this.velocidadEnemigos;
+
+          if (enemigo.posicion < -50) {
             this.enemigos.splice(i, 1);
-            i--;  
+            i--;
           }
 
-          this.revisarColision(this.enemigos[i]);  
+          this.revisarColision(enemigo);
         }
       }
     }, 50);
   }
 
-  revisarColision(enemigo: { posicion: number }) {
-    if (enemigo.posicion < 100 && enemigo.posicion > 50 && this.posicionDino < 50) {
+  revisarColision(enemigo: { posicion: number }): void {
+    const dinoLeft = 0; // Dino siempre está a 100px desde la izquierda
+    const dinoBottom = this.posicionDino; // Altura del dino
+    const enemigoLeft = enemigo.posicion; // Posición horizontal del enemigo
+
+    // Verificar si hay colisión horizontal
+    const colisionHorizontal = 
+      dinoLeft + this.anchoObjeto > enemigoLeft && // El lado derecho del dino toca al enemigo
+      dinoLeft < enemigoLeft + this.anchoObjeto; // El lado izquierdo del enemigo toca al dino
+
+    // Verificar si hay colisión vertical
+    const colisionVertical = dinoBottom < this.anchoObjeto; // Dino está en el suelo
+
+    if (colisionHorizontal && colisionVertical) {
       this.juegoIniciado = false;
-      this.enemigos = [];  
-      this.posicionDino = 0;  
+      alert(`¡Juego terminado! Puntos: ${this.puntos}`);
+      this.reiniciarJuego();
     }
   }
 
-  saltar() {
-    if (!this.estaSaltando && this.juegoIniciado) {  
+  saltar(): void {
+    if (this.juegoIniciado && !this.estaSaltando) {
       this.estaSaltando = true;
       let contadorSalto = 0;
 
       const intervaloSalto = setInterval(() => {
-        if (contadorSalto < 10) {  
-          this.posicionDino += this.alturaSalto;  
+        if (contadorSalto < 15) {
+          this.posicionDino += this.alturaSalto;
         } else {
           this.estaSaltando = false;
           clearInterval(intervaloSalto);
@@ -88,5 +103,18 @@ export class RunnerComponent implements OnInit {
         contadorSalto++;
       }, 20);
     }
+  }
+
+  actualizarPuntaje(): void {
+    setInterval(() => {
+      if (this.juegoIniciado) this.puntos++;
+    }, 100);
+  }
+
+  reiniciarJuego(): void {
+    this.juegoIniciado = false;
+    this.enemigos = [];
+    this.posicionDino = 0;
+    this.puntos = 0;
   }
 }

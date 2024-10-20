@@ -17,6 +17,7 @@ export class ChatComponent implements OnInit {
   chatForm: FormGroup;  
   mensajes: any[] = [];  
   isLoggedIn = false;  
+  currentUserEmail: string | null = null;
 
   constructor(private authService: AuthService, private firestore: Firestore, private fb: FormBuilder) {
     this.chatForm = this.fb.group({
@@ -25,9 +26,12 @@ export class ChatComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    const currentUser = this.authService.getCurrentUser();
+    this.currentUserEmail = currentUser ? currentUser.email : null;
+
     const q = query(
       collection(this.firestore, 'mensajes'),
-      orderBy('fecha', 'desc') 
+      orderBy('fecha', 'asc') 
     );
   
     onSnapshot(q, (querySnapshot) => {
